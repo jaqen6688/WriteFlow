@@ -1,0 +1,292 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body, #root {
+  height: 100%;
+  overflow: hidden;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+}
+
+.app-container {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+#editor-container {
+  flex: 1;
+  overflow-y: auto;
+}
+
+/* ProseMirror 基础样式 */
+.ProseMirror {
+  outline: none;
+  min-height: 100%;
+  padding: 40px 60px;
+  font-family: var(--font-editor);
+  font-size: 16px;
+  line-height: 1.7;
+  color: var(--text-primary);
+}
+
+.ProseMirror > *:first-child {
+  margin-top: 0;
+}
+
+/* 标题样式 */
+.ProseMirror h1 { font-size: 28px; font-weight: 700; margin: 24px 0 12px; line-height: 1.3; }
+.ProseMirror h2 { font-size: 24px; font-weight: 700; margin: 20px 0 10px; line-height: 1.3; }
+.ProseMirror h3 { font-size: 20px; font-weight: 600; margin: 16px 0 8px; line-height: 1.4; }
+.ProseMirror h4 { font-size: 18px; font-weight: 600; margin: 14px 0 6px; line-height: 1.4; }
+.ProseMirror h5 { font-size: 16px; font-weight: 600; margin: 12px 0 4px; }
+.ProseMirror h6 { font-size: 15px; font-weight: 600; margin: 12px 0 4px; color: var(--text-secondary); }
+
+/* 段落 */
+.ProseMirror p { margin-bottom: 12px; }
+
+/* 加粗/斜体 */
+.ProseMirror strong { font-weight: 700; }
+.ProseMirror em { font-style: italic; }
+.ProseMirror s { text-decoration: line-through; }
+
+/* 行内代码 */
+.ProseMirror code {
+  background: var(--bg-tertiary);
+  padding: 2px 6px;
+  border-radius: var(--radius-sm);
+  font-family: var(--font-mono);
+  font-size: 0.9em;
+}
+
+/* 链接 */
+.ProseMirror a {
+  color: var(--accent-color);
+  text-decoration: underline;
+}
+
+/* 引用 */
+.ProseMirror blockquote {
+  border-left: 4px solid var(--accent-color);
+  padding: 8px 16px;
+  margin: 12px 0;
+  background: var(--bg-secondary);
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  color: var(--text-secondary);
+}
+
+/* 任务列表 */
+.ProseMirror li[data-type="task_item"] {
+  list-style: none;
+  position: relative;
+  margin-left: -1.2em;
+}
+
+.ProseMirror li[data-type="task_item"] input[type="checkbox"] {
+  margin-right: 0.4em;
+  vertical-align: middle;
+  cursor: pointer;
+  width: 15px;
+  height: 15px;
+  accent-color: var(--accent-color);
+}
+
+/* 代码块 */
+.ProseMirror pre {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 16px;
+  margin: 12px 0;
+  overflow-x: auto;
+  font-family: var(--font-mono);
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.ProseMirror pre code {
+  background: none;
+  padding: 0;
+  border-radius: 0;
+  font-size: inherit;
+}
+
+/* highlight.js 代码高亮 */
+.ProseMirror pre code .hljs-keyword,
+.ProseMirror pre code .hljs-selector-tag,
+.ProseMirror pre code .hljs-literal,
+.ProseMirror pre code .hljs-section,
+.ProseMirror pre code .hljs-link { color: #e45649; }
+
+.ProseMirror pre code .hljs-string,
+.ProseMirror pre code .hljs-title,
+.ProseMirror pre code .hljs-name,
+.ProseMirror pre code .hljs-type,
+.ProseMirror pre code .hljs-attribute { color: #50a14f; }
+
+.ProseMirror pre code .hljs-number,
+.ProseMirror pre code .hljs-operator { color: #986801; }
+
+.ProseMirror pre code .hljs-comment,
+.ProseMirror pre code .hljs-quote { color: #a0a1a7; font-style: italic; }
+
+.ProseMirror pre code .hljs-variable,
+.ProseMirror pre code .hljs-template-variable,
+.ProseMirror pre code .hljs-built_in { color: #c18401; }
+
+.ProseMirror pre code .hljs-symbol,
+.ProseMirror pre code .hljs-bullet { color: #4078f2; }
+
+.ProseMirror pre code .hljs-meta { color: #4078f2; }
+
+.ProseMirror pre code .hljs-deletion { color: #e45649; background: #ffeef0; }
+.ProseMirror pre code .hljs-addition { color: #50a14f; background: #e6ffed; }
+
+[data-theme="dark"] .ProseMirror pre code .hljs-keyword,
+[data-theme="dark"] .ProseMirror pre code .hljs-selector-tag,
+[data-theme="dark"] .ProseMirror pre code .hljs-literal { color: #c678dd; }
+
+[data-theme="dark"] .ProseMirror pre code .hljs-string,
+[data-theme="dark"] .ProseMirror pre code .hljs-title,
+[data-theme="dark"] .ProseMirror pre code .hljs-name { color: #98c379; }
+
+[data-theme="dark"] .ProseMirror pre code .hljs-number,
+[data-theme="dark"] .ProseMirror pre code .hljs-operator { color: #d19a66; }
+
+[data-theme="dark"] .ProseMirror pre code .hljs-comment { color: #5c6370; }
+
+[data-theme="dark"] .ProseMirror pre code .hljs-variable,
+[data-theme="dark"] .ProseMirror pre code .hljs-built_in { color: #e06c75; }
+
+[data-theme="dark"] .ProseMirror pre code .hljs-symbol { color: #61afef; }
+
+[data-theme="dark"] .ProseMirror pre code .hljs-meta { color: #61afef; }
+
+/* 数学公式 */
+.ProseMirror .math-inline .katex { font-size: 1.05em; }
+.ProseMirror .math-block {
+  margin: 12px 0;
+  text-align: center;
+  overflow-x: auto;
+}
+.ProseMirror .math-block .katex-display { margin: 0; }
+
+/* 脚注 */
+.ProseMirror sup.footnote-ref {
+  color: var(--accent-color);
+  cursor: pointer;
+  font-size: 0.8em;
+  margin: 0 2px;
+}
+.ProseMirror .footnote-block {
+  margin-top: 24px;
+  padding-top: 12px;
+  border-top: 1px solid var(--border-color);
+  font-size: 0.9em;
+  color: var(--text-secondary);
+}
+
+/* 列表 */
+.ProseMirror ul, .ProseMirror ol {
+  margin: 8px 0;
+  padding-left: 24px;
+}
+
+.ProseMirror li { margin-bottom: 4px; }
+
+/* 水平线 */
+.ProseMirror hr {
+  border: none;
+  border-top: 2px solid var(--border-color);
+  margin: 24px 0;
+}
+
+/* 图片 */
+.ProseMirror img {
+  max-width: 100%;
+  border-radius: var(--radius-md);
+  margin: 12px 0;
+}
+
+/* 表格 */
+.ProseMirror table {
+  border-collapse: collapse;
+  width: 100%;
+  margin: 12px 0;
+}
+
+.ProseMirror td, .ProseMirror th {
+  border: 1px solid var(--border-color);
+  padding: 8px 12px;
+  text-align: left;
+}
+
+.ProseMirror th {
+  font-weight: 600;
+  background: var(--bg-tertiary);
+}
+
+.ProseMirror tr:nth-child(even) {
+  background: var(--bg-secondary);
+}
+
+/* ===== WYSIWYG 块切换样式 ===== */
+
+/* Source mode: 光标所在块，显示 Markdown 标记 */
+.wf-source-mode {
+  background: rgba(0, 102, 204, 0.03);
+  border-left: 2px solid var(--accent-color);
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  padding-left: 10px;
+  transition: all 0.15s ease;
+}
+
+/* Render mode: 非活跃块，正常渲染 */
+.wf-render-mode {
+  transition: all 0.15s ease;
+}
+
+/* Source mode 下显示 Markdown 标记 */
+
+/* 标题标记 */
+.wf-source-mode h1::before { content: '# '; color: var(--text-tertiary); font-weight: 400; }
+.wf-source-mode h2::before { content: '## '; color: var(--text-tertiary); font-weight: 400; }
+.wf-source-mode h3::before { content: '### '; color: var(--text-tertiary); font-weight: 400; }
+.wf-source-mode h4::before { content: '#### '; color: var(--text-tertiary); font-weight: 400; }
+.wf-source-mode h5::before { content: '##### '; color: var(--text-tertiary); font-weight: 400; }
+.wf-source-mode h6::before { content: '###### '; color: var(--text-tertiary); font-weight: 400; }
+
+/* 加粗标记 */
+.wf-source-mode strong::before { content: '**'; color: var(--text-tertiary); font-weight: 400; }
+.wf-source-mode strong::after { content: '**'; color: var(--text-tertiary); font-weight: 400; }
+
+/* 斜体标记 */
+.wf-source-mode em::before { content: '*'; color: var(--text-tertiary); font-style: normal; }
+.wf-source-mode em::after { content: '*'; color: var(--text-tertiary); font-style: normal; }
+
+/* 删除线标记 */
+.wf-source-mode s::before { content: '~~'; color: var(--text-tertiary); text-decoration: none; }
+.wf-source-mode s::after { content: '~~'; color: var(--text-tertiary); text-decoration: none; }
+
+/* 行内代码标记 */
+.wf-source-mode code::before { content: '`'; color: var(--text-tertiary); }
+.wf-source-mode code::after { content: '`'; color: var(--text-tertiary); }
+
+/* 引用标记 */
+.wf-source-mode blockquote::before {
+  content: '> ';
+  color: var(--text-tertiary);
+  position: absolute;
+  left: -20px;
+}
+
+.wf-source-mode blockquote { position: relative; }
+
+/* Render mode 下隐藏标记（默认就隐藏，不需要额外 CSS） */

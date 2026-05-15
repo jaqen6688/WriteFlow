@@ -1,0 +1,25 @@
+node_modules/
+out/
+dist/
+release/
+*.log
+
+# Environment & secrets
+.env
+.env.*
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# AI dev notes & tooling
+.baoyu-skills/
+.superpowers/
+PROMPT.txt
+TEST_CASES.md
+test_selfcheck.html
+docs/superpowers/

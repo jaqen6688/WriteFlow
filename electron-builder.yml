@@ -1,0 +1,36 @@
+appId: com.writeflow.editor
+productName: WriteFlow
+directories:
+  buildResources: resources
+  output: release
+files:
+  - out/**/*
+  - "!out/renderer/**/*"
+extraResources:
+  - from: out/renderer
+    to: renderer
+win:
+  target:
+    - nsis
+  icon: resources/icon.png
+  signAndEditExecutable: false
+  fileAssociations:
+    - ext: md
+      name: Markdown File
+      role: Editor
+    - ext: markdown
+      name: Markdown File
+      role: Editor
+nsis:
+  oneClick: false
+  allowToChangeInstallationDirectory: true
+  createDesktopShortcut: true
+  shortcutName: WriteFlow
+mac:
+  target:
+    - dmg
+  icon: resources/icon.png
+linux:
+  target:
+    - AppImage
+  icon: resources/icon.png
