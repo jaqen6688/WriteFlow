@@ -54,6 +54,8 @@ Typora 开始收费了，市面上的免费 Markdown 编辑器要么功能简陋
 | macOS (Intel) | `WriteFlow-x.x.x-x64.dmg` | Intel 芯片的 Mac |
 | Linux | `WriteFlow-x.x.x.AppImage` | 下载后 `chmod +x` 再双击运行 |
 
+国内用户如无法访问 GitHub，可从百度网盘下载：[WriteFlow](https://pan.baidu.com/s/1Xmv830huBSlTeqPKzz_UpA?pwd=qec6)（提取码：qec6）
+
 ## 从源码构建
 
 ```bash
@@ -186,6 +188,8 @@ Go to [Releases](https://github.com/jaqen6688/WriteFlow/releases) for the latest
 | macOS (Apple Silicon) | `WriteFlow-x.x.x-arm64.dmg` | M1/M2/M3/M4 Macs |
 | macOS (Intel) | `WriteFlow-x.x.x-x64.dmg` | Intel-based Macs |
 | Linux | `WriteFlow-x.x.x.AppImage` | `chmod +x` then double-click |
+
+Users in China can download from Baidu Netdisk: [WriteFlow](https://pan.baidu.com/s/1Xmv830huBSlTeqPKzz_UpA?pwd=qec6) (code: qec6)
 
 ## Build from Source
 
