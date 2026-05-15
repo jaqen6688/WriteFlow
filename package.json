@@ -7,12 +7,12 @@
   "license": "GPL-3.0",
   "repository": {
     "type": "git",
-    "url": "https://github.com/winsen684/WriteFlow"
+    "url": "https://github.com/jaqen6688/WriteFlow"
   },
   "bugs": {
-    "url": "https://github.com/winsen684/WriteFlow/issues"
+    "url": "https://github.com/jaqen6688/WriteFlow/issues"
   },
-  "homepage": "https://github.com/winsen684/WriteFlow",
+  "homepage": "https://github.com/jaqen6688/WriteFlow",
   "keywords": [
     "markdown",
     "editor",

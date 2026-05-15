@@ -8,7 +8,7 @@
 
 [![License: GPL v3](https://img.shields.io/badge/License-GPL%20v3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](CONTRIBUTING.md)
-[![GitHub Release](https://img.shields.io/github/v/release/winsen684/WriteFlow?include_prereleases)](https://github.com/winsen684/WriteFlow/releases)
+[![GitHub Release](https://img.shields.io/github/v/release/jaqen6688/WriteFlow?include_prereleases)](https://github.com/jaqen6688/WriteFlow/releases)
 
 </div>
 
@@ -45,13 +45,13 @@ Typora 开始收费了，市面上的免费 Markdown 编辑器要么功能简陋
 
 ## 下载安装
 
-前往 [Releases](https://github.com/winsen684/WriteFlow/releases) 下载最新版 Windows 安装包。
+前往 [Releases](https://github.com/jaqen6688/WriteFlow/releases) 下载最新版 Windows 安装包。
 
 ## 从源码构建
 
 ```bash
 # 克隆仓库
-git clone https://github.com/winsen684/writeflow.git
+git clone https://github.com/jaqen6688/writeflow.git
 cd writeflow
 
 # 安装依赖
@@ -134,7 +134,7 @@ WriteFlow 使用 Claude Code（AI 编程助手）辅助开发。项目从零到�
 
 欢迎扫码添加微信交流
 
-![微信](resources/wechat-qr.jpg)
+<img src="resources/wechat-qr.jpg" width="150" />
 
 ## License
 
@@ -171,12 +171,12 @@ Typora went paid. Free Markdown editors are either feature-poor or have rough UX
 
 ## Download
 
-Go to [Releases](https://github.com/winsen684/WriteFlow/releases) for the latest Windows installer.
+Go to [Releases](https://github.com/jaqen6688/WriteFlow/releases) for the latest Windows installer.
 
 ## Build from Source
 
 ```bash
-git clone https://github.com/winsen684/writeflow.git
+git clone https://github.com/jaqen6688/writeflow.git
 cd writeflow
 npm install
 npm run dev        # Development
