@@ -10,6 +10,7 @@ extraResources:
   - from: out/renderer
     to: renderer
 win:
+  artifactName: WriteFlow-${version}-windows.${ext}
   target:
     - nsis
   icon: resources/icon.png
@@ -27,10 +28,12 @@ nsis:
   createDesktopShortcut: true
   shortcutName: WriteFlow
 mac:
+  artifactName: WriteFlow-${version}-mac-${arch}.${ext}
   target:
     - dmg
   icon: resources/icon.png
 linux:
+  artifactName: WriteFlow-${version}-linux.${ext}
   target:
     - AppImage
   icon: resources/icon.png
