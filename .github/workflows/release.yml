@@ -15,7 +15,9 @@ jobs:
           - os: windows-latest
             build_cmd: npm run build:win
           - os: macos-latest
-            build_cmd: npm run build:mac
+            build_cmd: npm run build && npx electron-builder --mac
+          - os: macos-latest
+            build_cmd: npm run build && npx electron-builder --mac --x64
           - os: ubuntu-latest
             build_cmd: npm run build:linux
     runs-on: ${{ matrix.os }}
@@ -37,5 +39,3 @@ jobs:
             release/*.exe
             release/*.dmg
             release/*.AppImage
-            release/*.yml
-            release/*.blockmap
