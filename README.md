@@ -45,7 +45,13 @@ Typora 开始收费了，市面上的免费 Markdown 编辑器要么功能简陋
 
 ## 下载安装
 
-前往 [Releases](https://github.com/jaqen6688/WriteFlow/releases) 下载最新版 Windows 安装包。
+前往 [Releases](https://github.com/jaqen6688/WriteFlow/releases) 下载对应平台安装包：
+
+| 平台 | 文件 |
+|------|------|
+| Windows | `WriteFlow Setup x.x.x.exe` |
+| macOS | `WriteFlow-x.x.x.dmg` |
+| Linux | `WriteFlow-x.x.x.AppImage` |
 
 ## 从源码构建
 
@@ -171,7 +177,13 @@ Typora went paid. Free Markdown editors are either feature-poor or have rough UX
 
 ## Download
 
-Go to [Releases](https://github.com/jaqen6688/WriteFlow/releases) for the latest Windows installer.
+Go to [Releases](https://github.com/jaqen6688/WriteFlow/releases) for the latest installer:
+
+| Platform | File |
+|----------|------|
+| Windows | `WriteFlow Setup x.x.x.exe` |
+| macOS | `WriteFlow-x.x.x.dmg` |
+| Linux | `WriteFlow-x.x.x.AppImage` |
 
 ## Build from Source
 

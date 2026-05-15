@@ -44,3 +44,18 @@
 
 ### 编辑器布局自适应
 - **不要硬编码编辑区域 `max-width`**：桌面编辑器应去掉 `max-width` 限制，让内容自适应填满可用空间
+
+### 渲染进程禁止 require()
+- **`src/renderer/` 下禁止使用 `require()` 加载 npm 模块**：Electron 配置了 `contextIsolation: true` + `nodeIntegration: false`，渲染进程没有 Node.js 环境
+- `require()` 在 dev 模式下被 Vite 转译所以能跑，但打包后报 `ReferenceError: require is not defined`，导致整个 JS 中断、页面空白
+- 一律用 ES `import` 语句引入
+
+### 关闭标签页时必须清理备份
+- 关闭标签页时，备份清理必须同时处理有 `filePath` 和无 `filePath`（untitled）两种情况
+- 无文件路径的 tab 备份 key 固定为 `'untitled'`，关闭时也必须调用 `backupRemove('untitled')`
+- 否则用户关闭未保存文档后，下次启动文档又会出现
+
+### GitHub Actions Release workflow
+- **构建步骤必须传入 `GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}`**：否则 electron-builder 报 `GitHub Personal Access Token is not set`
+- **不要用 `publish: none`**：需要额外的 `electron-publisher-none` 包，直接提供 `GH_TOKEN` 即可
+- **job 必须添加 `permissions: contents: write`**：否则 `softprops/action-gh-release` 报 `Resource not accessible by integration`
