@@ -1,6 +1,6 @@
 {
   "name": "writeflow",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "WriteFlow - A Typora-style WYSIWYG Markdown Editor",
   "main": "./out/main/index.js",
   "author": "Winsen",

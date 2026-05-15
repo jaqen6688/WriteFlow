@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.3.1 (2026-05-16)
+
+### Improvements
+
+- 新增 macOS Intel (x64) 安装包构建
+- README 添加百度网盘下载链接（国内用户加速）
+- 下载表格补充各平台说明（哪个文件对应哪个系统）
+- GitHub 仓库设置优化（开启 Discussions、关闭 Wiki/Projects、添加 Topics）
+
 ## 0.3.0 (2026-05-14)
 
 ### New Features
