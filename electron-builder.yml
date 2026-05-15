@@ -34,4 +34,3 @@ linux:
   target:
     - AppImage
   icon: resources/icon.png
-publish: none
