@@ -57,5 +57,9 @@
   "shortcuts.saveFile": "保存文件",
   "shortcuts.saveAs": "另存为",
   "shortcuts.toggleHint": "打开/关闭此面板",
-  "shortcuts.paragraph": "正文段落"
+  "shortcuts.paragraph": "正文段落",
+  "fileChanged.message": "'{{name}}' 已被外部程序修改，是否重新加载？",
+  "fileChanged.dirtyMessage": "'{{name}}' 已被外部程序修改。重新加载将丢失未保存的更改。",
+  "fileChanged.reload": "重新加载",
+  "fileChanged.keep": "保留当前"
 }

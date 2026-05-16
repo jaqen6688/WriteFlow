@@ -19,6 +19,14 @@ const api = {
   openImage: () => ipcRenderer.invoke('image:open'),
   onOpenFilePath: (callback: (filePath: string, content: string) => void) => {
     ipcRenderer.on('open-file-path', (_event, filePath, content) => callback(filePath, content))
+  },
+  watchFile: (filePath: string) => ipcRenderer.invoke('file:watch', { filePath }),
+  unwatchFile: (filePath: string) => ipcRenderer.invoke('file:unwatch', { filePath }),
+  readFileContent: (filePath: string) => ipcRenderer.invoke('file:read', { filePath }),
+  onFileChanged: (callback: (filePath: string) => void) => {
+    const handler = (_event: any, { filePath }: { filePath: string }) => callback(filePath)
+    ipcRenderer.on('file:changed', handler)
+    return () => ipcRenderer.removeListener('file:changed', handler)
   }
 }
 

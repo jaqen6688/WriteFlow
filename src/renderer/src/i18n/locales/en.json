@@ -57,5 +57,9 @@
   "shortcuts.saveFile": "Save File",
   "shortcuts.saveAs": "Save As",
   "shortcuts.toggleHint": "to toggle this panel",
-  "shortcuts.paragraph": "Paragraph"
+  "shortcuts.paragraph": "Paragraph",
+  "fileChanged.message": "'{{name}}' has been modified externally. Reload it?",
+  "fileChanged.dirtyMessage": "'{{name}}' has been modified externally. Reloading will discard your unsaved changes.",
+  "fileChanged.reload": "Reload",
+  "fileChanged.keep": "Keep Current"
 }

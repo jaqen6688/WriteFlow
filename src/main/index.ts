@@ -4,6 +4,7 @@ import { readFile } from 'fs/promises'
 import { registerIpcHandlers } from './ipc'
 import { setMenuLocale, rebuildMenu, getMenuLabels } from './menu'
 import { registerBackupHandlers } from './backup'
+import { stopAllWatching } from './fileWatcher'
 
 function registerProtocols(): void {
   protocol.registerSchemesAsPrivileged([
@@ -73,6 +74,11 @@ function createWindow(): void {
   mainWindow.on('close', (e) => {
     e.preventDefault()
     mainWindow!.webContents.send('menu:check-unsaved')
+  })
+
+  mainWindow.on('closed', () => {
+    stopAllWatching()
+    mainWindow = null
   })
 
   mainWindow.webContents.setWindowOpenHandler((details) => {

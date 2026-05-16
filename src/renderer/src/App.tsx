@@ -10,6 +10,7 @@ import { createPlugins } from './editor/plugins'
 import Layout from './components/Layout'
 import AboutDialog from './components/AboutDialog'
 import ShortcutHelp from './components/ShortcutHelp'
+import FileChangedDialog from './components/FileChangedDialog'
 
 function AppInner(): JSX.Element {
   const { containerRef, editorView, editorState, syncState, initEditor, destroyEditor } = useEditor()
@@ -26,13 +27,15 @@ function AppInner(): JSX.Element {
     saveActiveTab,
     saveActiveTabAs,
     markDirty,
-    saveCurrentState
+    saveCurrentState,
+    reloadTab
   } = useTabManager(t, syncState)
 
   const { clearBackup } = useAutoBackup({ editorView, editorState, activeTab })
 
   const [aboutOpen, setAboutOpen] = useState(false)
   const [shortcutOpen, setShortcutOpen] = useState(false)
+  const [changedFileInfo, setChangedFileInfo] = useState<{ tabId: string; filePath: string } | null>(null)
   const tabsRef = useRef(tabs)
   tabsRef.current = tabs
 
@@ -46,6 +49,12 @@ function AppInner(): JSX.Element {
     initEditor((tr) => {
       if (tr.docChanged) markDirty()
     })
+    // 编辑器就绪后，加载当前 activeTab 的内容（处理右键打开文件的时序问题）
+    const tab = tabsRef.current.find((t) => t.filePath)
+    if (tab && editorView.current) {
+      editorView.current.updateState(tab.editorState)
+      syncState()
+    }
     return () => {
       destroyEditor()
     }
@@ -124,6 +133,48 @@ function AppInner(): JSX.Element {
     })
   }, [openFileTab])
 
+  // 同步文件监听器与打开的标签页
+  useEffect(() => {
+    const watchedPaths = tabs
+      .filter((tab) => tab.filePath)
+      .map((tab) => tab.filePath!)
+
+    for (const path of watchedPaths) {
+      window.api.watchFile(path)
+    }
+
+    return () => {
+      for (const path of watchedPaths) {
+        window.api.unwatchFile(path)
+      }
+    }
+  }, [tabs])
+
+  // 监听外部文件修改
+  useEffect(() => {
+    const cleanup = window.api.onFileChanged((filePath: string) => {
+      const tab = tabsRef.current.find((t) => t.filePath === filePath)
+      if (tab) {
+        setChangedFileInfo({ tabId: tab.id, filePath })
+      }
+    })
+    return cleanup
+  }, [])
+
+  // 重新加载外部修改的文件
+  const handleReloadFile = useCallback(async () => {
+    if (!changedFileInfo) return
+    const result = await window.api.readFileContent(changedFileInfo.filePath)
+    if (result.success && result.content) {
+      reloadTab(changedFileInfo.tabId, result.content)
+    }
+    setChangedFileInfo(null)
+  }, [changedFileInfo, reloadTab])
+
+  const handleDismissFileChange = useCallback(() => {
+    setChangedFileInfo(null)
+  }, [])
+
   // 窗口标题
   useEffect(() => {
     if (activeTab) {
@@ -194,6 +245,13 @@ function AppInner(): JSX.Element {
       </EditorContext.Provider>
       <AboutDialog open={aboutOpen} onClose={() => setAboutOpen(false)} />
       <ShortcutHelp open={shortcutOpen} onClose={() => setShortcutOpen(false)} />
+      <FileChangedDialog
+        open={changedFileInfo !== null}
+        fileName={changedFileInfo ? (changedFileInfo.filePath.split(/[/\\]/).pop() || '') : ''}
+        isDirty={changedFileInfo ? (tabs.find((t) => t.id === changedFileInfo.tabId)?.isDirty ?? false) : false}
+        onReload={handleReloadFile}
+        onDismiss={handleDismissFileChange}
+      />
     </>
   )
 }

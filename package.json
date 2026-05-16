@@ -1,9 +1,9 @@
 {
   "name": "writeflow",
-  "version": "0.3.2",
+  "version": "0.4.0",
   "description": "WriteFlow - A Typora-style WYSIWYG Markdown Editor",
   "main": "./out/main/index.js",
-  "author": "Winsen",
+  "author": "Jaqen",
   "license": "GPL-3.0",
   "repository": {
     "type": "git",

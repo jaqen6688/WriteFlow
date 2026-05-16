@@ -242,6 +242,29 @@ export function useTabManager(t: (key: string, params?: Record<string, string | 
     }
   }, [updateTab])
 
+  // 重新加载 tab 内容（外部文件修改后）
+  const reloadTab = useCallback(
+    (tabId: string, content: string) => {
+      const tab = tabs.find((t) => t.id === tabId)
+      if (!tab) return
+
+      const doc = parseMarkdown(content, tab.filePath ?? undefined)
+      const state = EditorState.create({ doc, plugins: createPlugins() })
+
+      updateTab(tabId, {
+        editorState: state,
+        isDirty: false,
+        scrollPosition: 0
+      })
+
+      if (tabId === activeTabId && editorViewRef.current) {
+        editorViewRef.current.updateState(state)
+        onStateChangeRef.current?.()
+      }
+    },
+    [tabs, activeTabId, updateTab]
+  )
+
   return {
     tabs,
     activeTabId,
@@ -255,6 +278,7 @@ export function useTabManager(t: (key: string, params?: Record<string, string | 
     saveActiveTabAs,
     updateTab,
     markDirty,
-    saveCurrentState
+    saveCurrentState,
+    reloadTab
   }
 }

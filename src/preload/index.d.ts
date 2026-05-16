@@ -28,6 +28,10 @@ export interface EditorAPI {
   backupRemove: (key: string) => Promise<{ success: boolean }>
   backupUpdatePath: (key: string, originalPath: string) => Promise<{ success: boolean }>
   onOpenFilePath: (callback: (filePath: string, content: string) => void) => void
+  watchFile: (filePath: string) => Promise<void>
+  unwatchFile: (filePath: string) => Promise<void>
+  readFileContent: (filePath: string) => Promise<{ success: boolean; content?: string; error?: string }>
+  onFileChanged: (callback: (filePath: string) => void) => () => void
 }
 
 declare global {

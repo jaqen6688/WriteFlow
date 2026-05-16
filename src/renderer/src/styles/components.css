@@ -477,6 +477,45 @@
   transform: translateY(-1px);
 }
 
+/* ===== File Changed Dialog ===== */
+
+.file-changed-message {
+  font-size: 14px;
+  color: var(--text-primary);
+  margin: 0 0 20px;
+  line-height: 1.5;
+}
+
+.file-changed-actions {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+}
+
+.file-changed-btn {
+  padding: 6px 16px;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  font-size: 13px;
+  cursor: pointer;
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+}
+
+.file-changed-btn:hover {
+  background: var(--bg-tertiary);
+}
+
+.file-changed-reload {
+  background: var(--accent-color);
+  color: #fff;
+  border-color: var(--accent-color);
+}
+
+.file-changed-reload:hover {
+  opacity: 0.9;
+}
+
 .about-cursor {
   animation: cursorBlink 0.6s step-end infinite;
   color: var(--text-tertiary);
