@@ -39,16 +39,13 @@ function AppInner(): JSX.Element {
   const tabsRef = useRef(tabs)
   tabsRef.current = tabs
 
-  // 同步 editorView 到 tabManager
-  useEffect(() => {
-    editorViewRef.current = editorView.current
-  }, [editorView.current, editorViewRef])
-
   // 初始化编辑器
   useEffect(() => {
     initEditor((tr) => {
       if (tr.docChanged) markDirty()
     })
+    // initEditor 创建了 EditorView，立即同步到 tabManager
+    editorViewRef.current = editorView.current
     // 编辑器就绪后，加载当前 activeTab 的内容（处理右键打开文件的时序问题）
     const tab = tabsRef.current.find((t) => t.filePath)
     if (tab && editorView.current) {

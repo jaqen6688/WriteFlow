@@ -102,7 +102,9 @@ export const parser = new MarkdownParser(writeflowSchema, md, {
         rowspan: Number(token.attrGet('rowspan') || 1)
       }
     }
-  }
+  },
+  html_inline: { ignore: true, noCloseToken: true },
+  html_block: { ignore: true, noCloseToken: true }
 })
 
 export function parseMarkdown(text: string, basePath?: string) {
