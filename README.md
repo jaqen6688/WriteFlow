@@ -18,7 +18,7 @@ Typora 开始收费了，市面上的免费 Markdown 编辑器要么功能简陋
 
 * **大纲导航** — 左侧栏实时显示标题层级，点击跳转，可拖拽宽度
 
-* **代码高亮** — 代码块支持多语言语法高亮（highlight.js）
+* **代码高亮** — 代码块支持多语言语法高亮（highlight.js），悬停显示语言标签和一键复制按钮
 
 * **数学公式** — 支持 `$...$` 行内公式和 `$$...$$` 块级公式（KaTeX）
 
@@ -172,7 +172,7 @@ Typora went paid. Free Markdown editors are either feature-poor or have rough UX
 
 * **Outline navigation** — Real-time heading hierarchy in sidebar
 
-* **Syntax highlighting** — Multi-language code block highlighting (highlight.js)
+* **Syntax highlighting** — Multi-language code block highlighting (highlight.js) with language labels and one-click copy
 
 * **Math formulas** — Inline `$...$` and block `$$...$$` math rendering (KaTeX)
 

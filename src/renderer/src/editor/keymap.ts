@@ -5,6 +5,7 @@ import { writeflowSchema } from './schema'
 import { undo, redo } from 'prosemirror-history'
 import { EditorState, Transaction, Plugin, PluginKey } from 'prosemirror-state'
 import { serializeDoc } from './markdown'
+import { copyIcon, checkIcon, getCodeCopyLabels } from './codeCopy'
 
 const schema = writeflowSchema
 
@@ -175,6 +176,33 @@ export const clipboardPlugin = new Plugin({
         }
         return false
       }
+    }
+  }
+})
+
+export const codeCopyPlugin = new Plugin({
+  key: new PluginKey('codeCopy'),
+  props: {
+    handleClick(_view, _pos, event) {
+      const btn = (event.target as HTMLElement).closest('.code-copy-btn') as HTMLElement | null
+      if (!btn) return false
+      const pre = btn.closest('pre')
+      const code = pre?.querySelector('code')
+      if (!code) return false
+      navigator.clipboard.writeText(code.textContent || '')
+      btn.classList.add('copied')
+      const copiedLabel = getCodeCopyLabels().copied
+      btn.setAttribute('aria-label', copiedLabel)
+      btn.setAttribute('title', copiedLabel)
+      btn.innerHTML = checkIcon
+      setTimeout(() => {
+        btn.classList.remove('copied')
+        const copyLabel = getCodeCopyLabels().copy
+        btn.setAttribute('aria-label', copyLabel)
+        btn.setAttribute('title', copyLabel)
+        btn.innerHTML = copyIcon
+      }, 2000)
+      return true
     }
   }
 })

@@ -109,6 +109,7 @@ body {
   font-family: var(--font-mono);
   font-size: 14px;
   line-height: 1.5;
+  position: relative;
 }
 
 .ProseMirror pre code {
@@ -117,6 +118,42 @@ body {
   border-radius: 0;
   font-size: inherit;
 }
+
+.code-copy-btn {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  border: none;
+  background: transparent;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 0.15s, background 0.15s, color 0.15s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-secondary);
+}
+.ProseMirror pre:hover .code-copy-btn { opacity: 1; }
+.code-copy-btn:hover { background: var(--border-color); }
+.code-copy-btn.copied { opacity: 1; color: var(--accent-color); }
+
+.code-lang-label {
+  position: absolute;
+  top: 6px;
+  right: 44px;
+  font-size: 11px;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  opacity: 0;
+  transition: opacity 0.15s;
+  pointer-events: none;
+  line-height: 28px;
+}
+.ProseMirror pre:hover .code-lang-label { opacity: 0.7; }
 
 /* highlight.js 代码高亮 */
 .ProseMirror pre code .hljs-keyword,

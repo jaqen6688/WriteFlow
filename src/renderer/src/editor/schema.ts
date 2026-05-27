@@ -1,6 +1,7 @@
 import { Schema } from 'prosemirror-model'
 import hljs from 'highlight.js'
 import katex from 'katex'
+import { copyIcon, getCodeCopyLabels } from './codeCopy'
 
 export const writeflowSchema = new Schema({
   nodes: {
@@ -55,18 +56,38 @@ export const writeflowSchema = new Schema({
         }
       }],
       toDOM(node) {
+        const wrapper = document.createElement('pre')
         const code = document.createElement('code')
         if (node.attrs.language) {
           code.className = `language-${node.attrs.language}`
           try {
             code.innerHTML = hljs.highlight(node.textContent, { language: node.attrs.language }).value
-            return ['pre', code]
           } catch {
-            // 高亮失败时回退为纯文本
+            code.textContent = node.textContent
           }
+        } else {
+          code.textContent = node.textContent
         }
-        code.textContent = node.textContent
-        return ['pre', code]
+
+        if (node.attrs.language) {
+          const lang = document.createElement('span')
+          lang.className = 'code-lang-label'
+          lang.textContent = node.attrs.language
+          wrapper.appendChild(lang)
+        }
+
+        const btn = document.createElement('button')
+        btn.className = 'code-copy-btn'
+        btn.type = 'button'
+        btn.tabIndex = -1
+        const labels = getCodeCopyLabels()
+        btn.setAttribute('aria-label', labels.copy)
+        btn.setAttribute('title', labels.copy)
+        btn.innerHTML = copyIcon
+
+        wrapper.appendChild(code)
+        wrapper.appendChild(btn)
+        return wrapper
       }
     },
     ordered_list: {
