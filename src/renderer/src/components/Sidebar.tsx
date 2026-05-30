@@ -18,10 +18,18 @@ export default function Sidebar() {
     const view = editorView.current
     const resolvedPos = view.state.doc.resolve(pos)
     const selection = TextSelection.near(resolvedPos)
-    const tr = view.state.tr.setSelection(selection)
-    tr.scrollIntoView()
-    view.dispatch(tr)
+    view.dispatch(view.state.tr.setSelection(selection))
     view.focus()
+
+    const node = view.nodeDOM(pos) as HTMLElement | null
+    if (node) {
+      const container = view.dom.closest('.layout-editor')
+      if (container) {
+        const containerRect = container.getBoundingClientRect()
+        const nodeRect = node.getBoundingClientRect()
+        container.scrollTop += nodeRect.top - containerRect.top - containerRect.height / 3
+      }
+    }
   }
 
   return (
