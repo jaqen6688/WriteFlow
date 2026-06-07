@@ -30,11 +30,19 @@ function createEmptyState(): EditorState {
 }
 
 export function useTabManager(t: (key: string, params?: Record<string, string | number>) => string, onStateChange?: () => void) {
-  const [tabs, setTabs] = useState<Tab[]>([])
+  const [tabs, setTabsState] = useState<Tab[]>([])
   const [activeTabId, _setActiveTabId] = useState<string | null>(null)
   const editorViewRef = useRef<EditorView | null>(null)
   const activeTabIdRef = useRef<string | null>(null)
+  const tabsRef = useRef<Tab[]>([])
   const onStateChangeRef = useRef<(() => void) | undefined>(onStateChange)
+
+  const setTabs = useCallback((action: Tab[] | ((prev: Tab[]) => Tab[])) => {
+    setTabsState(action)
+    // 同步 ref 以避免 stale closure
+    const next = typeof action === 'function' ? action(tabsRef.current) : action
+    tabsRef.current = next
+  }, [])
   onStateChangeRef.current = onStateChange
 
   const setActiveTabId = useCallback((id: string | null) => {
@@ -111,8 +119,8 @@ export function useTabManager(t: (key: string, params?: Record<string, string | 
   // 打开文件 tab（如果已打开则切换）
   const openFileTab = useCallback(
     (filePath: string, content: string) => {
-      // 检查是否已打开
-      const existing = tabs.find((t) => t.filePath === filePath)
+      // 用 ref 检查是否已打开，避免 stale closure 导致重复创建
+      const existing = tabsRef.current.find((t) => t.filePath === filePath)
       if (existing) {
         switchTab(existing.id)
         return existing.id
@@ -138,7 +146,7 @@ export function useTabManager(t: (key: string, params?: Record<string, string | 
       }
       return tab.id
     },
-    [tabs, t, saveCurrentState, switchTab]
+    [t, saveCurrentState, switchTab]
   )
 
   // 关闭 tab

@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.5.2 (2026-06-07)
+
+### Bug Fixes
+
+- **重复打开同一文件创建多个 tab**：快速连续打开同一文件时去重检查失败。改用 ref 保存最新 tabs 状态避免 stale closure (`useTabManager.ts`)
+
 ## 0.5.1 (2026-05-30)
 
 ### Bug Fixes

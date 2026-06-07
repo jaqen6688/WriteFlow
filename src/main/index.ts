@@ -5,6 +5,7 @@ import { registerIpcHandlers } from './ipc'
 import { setMenuLocale, rebuildMenu, getMenuLabels } from './menu'
 import { registerBackupHandlers } from './backup'
 import { stopAllWatching } from './fileWatcher'
+import { sendAnalyticsPing } from './analytics'
 
 function registerProtocols(): void {
   protocol.registerSchemesAsPrivileged([
@@ -142,6 +143,7 @@ app.whenReady().then(() => {
   })
 
   createWindow()
+  sendAnalyticsPing()
 
   // 首次启动时，检查命令行是否有文件参数
   const filePath = findMdFileFromArgs(process.argv)
