@@ -56,11 +56,11 @@ export default function AboutDialog({ open, onClose }: AboutDialogProps) {
             <p className="about-egg-name">贾昆 Jaqen</p>
             <a
               className="about-egg-link"
-              href="https://blog-a8c.pages.dev/"
+              href="https://jaqen.cc/"
               target="_blank"
               rel="noopener noreferrer"
             >
-              blog-a8c.pages.dev
+              jaqen.cc
             </a>
             <p className="about-egg-channel">公众号/百家号：全栈生涯</p>
             <p className="about-egg-channel">小红书/视频号/抖音/B站：贾昆说AI</p>
@@ -68,7 +68,7 @@ export default function AboutDialog({ open, onClose }: AboutDialogProps) {
         ) : (
           <a
             className={`about-author ${typedIndex >= madeByText.length ? 'about-author-done' : ''}`}
-            href="https://blog-a8c.pages.dev/"
+            href="https://jaqen.cc/"
             target="_blank"
             rel="noopener noreferrer"
             title={t('about.visit')}

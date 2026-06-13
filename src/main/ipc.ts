@@ -1,6 +1,6 @@
 import { ipcMain, dialog, BrowserWindow, app } from 'electron'
 import { readFile, writeFile } from 'fs/promises'
-import { startWatching, stopWatching, notifySave } from './fileWatcher'
+import { startWatching, stopWatching, notifySave, pauseWatching, resumeWatching } from './fileWatcher'
 
 export function registerIpcHandlers(): void {
   ipcMain.handle('file:open', async () => {
@@ -16,10 +16,13 @@ export function registerIpcHandlers(): void {
 
   ipcMain.handle('file:save', async (_event, { content, filePath }: { content: string; filePath: string }) => {
     try {
+      pauseWatching(filePath)
       await writeFile(filePath, content, 'utf-8')
       notifySave(filePath)
+      setTimeout(() => resumeWatching(filePath), 300)
       return { success: true, filePath }
     } catch (err: any) {
+      resumeWatching(filePath)
       return { success: false, error: err.message }
     }
   })

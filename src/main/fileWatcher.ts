@@ -3,6 +3,7 @@ import { BrowserWindow } from 'electron'
 
 const watchers = new Map<string, FSWatcher>()
 const saveCooldowns = new Map<string, number>()
+const paused = new Set<string>()
 const COOLDOWN_MS = 500
 
 export function startWatching(filePath: string): void {
@@ -12,6 +13,7 @@ export function startWatching(filePath: string): void {
 
   try {
     const watcher = watch(filePath, { persistent: false }, (eventType) => {
+      if (paused.has(filePath)) return
       if (eventType !== 'change') return
 
       const lastSave = saveCooldowns.get(filePath) || 0
@@ -33,6 +35,14 @@ export function startWatching(filePath: string): void {
   }
 }
 
+export function pauseWatching(filePath: string): void {
+  paused.add(filePath)
+}
+
+export function resumeWatching(filePath: string): void {
+  paused.delete(filePath)
+}
+
 export function stopWatching(filePath: string): void {
   const watcher = watchers.get(filePath)
   if (watcher) {
@@ -40,6 +50,7 @@ export function stopWatching(filePath: string): void {
     watchers.delete(filePath)
   }
   saveCooldowns.delete(filePath)
+  paused.delete(filePath)
 }
 
 export function notifySave(filePath: string): void {
@@ -52,4 +63,5 @@ export function stopAllWatching(): void {
   }
   watchers.clear()
   saveCooldowns.clear()
+  paused.clear()
 }
